@@ -1,13 +1,10 @@
 #[derive(Debug)]
 
-enum CommandType {
+pub enum Command {
     Add(String),
     Remove(String),
     List,
 }
-
-#[derive(Debug)]
-pub struct Command(CommandType);
 
 impl Command {
     pub fn new(cmd: &str) -> Option<Self> {
@@ -16,9 +13,9 @@ impl Command {
 
     fn parse(s: &str) -> Option<Command> {
         match s {
-            "add" => Some(Command(CommandType::Add(String::from("...")))),
-            "remove" => Some(Command(CommandType::Remove(String::from("...")))),
-            "list" => Some(Command(CommandType::Add(String::from("...")))),
+            "add" => Some(Command::Add(String::from("..."))),
+            "remove" => Some(Command::Remove(String::from("..."))),
+            "list" => Some(Command::List),
             _ => None,
         }
     }
@@ -26,8 +23,8 @@ impl Command {
 
 pub fn handle_command(cmd: Command) -> () {
     match cmd {
-        Command(CommandType::List) => (),
-        Command(CommandType::Add(_)) => (),
-        Command(CommandType::Remove(_)) => (),
+        Command::List => (),
+        Command::Add(_) => (),
+        Command::Remove(_) => (),
     };
 }
