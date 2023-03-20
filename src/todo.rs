@@ -20,11 +20,3 @@ impl Command {
         }
     }
 }
-
-pub fn handle_command(cmd: Command) -> () {
-    match cmd {
-        Command::List => (),
-        Command::Add(_) => (),
-        Command::Remove(_) => (),
-    };
-}
