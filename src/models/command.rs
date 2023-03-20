@@ -1,5 +1,3 @@
-#[derive(Debug)]
-
 pub enum Command {
     Add(String),
     Remove(String),

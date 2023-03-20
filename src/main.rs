@@ -1,28 +1,28 @@
 use std::io;
-
-mod todo;
-
-type Todo = String;
+mod config_file;
+mod db;
+mod models;
+use models::{command::Command, todo};
+mod utils;
 
 fn main() {
-    let mut todos = Vec::<Todo>::new();
     let mut user_input = String::new();
     let stdin = io::stdin();
 
     stdin.read_line(&mut user_input).expect("input failure");
 
-    let input = todo::Command::new(user_input.as_str().trim());
+    let input = Command::new(user_input.as_str().trim());
 
     match input {
-        Some(cmd) => handle_command(cmd, todos),
+        Some(cmd) => handle_command(cmd),
         _ => println!("bad command"),
     }
 }
 
-pub fn handle_command(cmd: todo::Command, state: Vec<Todo>) -> () {
+pub fn handle_command(cmd: Command) -> () {
     match cmd {
-        todo::Command::List => (),
-        todo::Command::Add(_) => (),
-        todo::Command::Remove(_) => (),
+        Command::List => (),
+        Command::Add(_) => (),
+        Command::Remove(_) => (),
     };
 }
