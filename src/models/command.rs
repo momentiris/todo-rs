@@ -13,8 +13,6 @@ impl Command {
         let command = v.get(0).cloned();
         let args = v.get(1).cloned();
 
-        println!("{:?}", command);
-        println!("{:?}", args);
         match (command, args) {
             (Some("add"), Some(title)) => Some(Command::Add(String::from(title.clone()))),
             (Some("remove"), Some(id)) => Some(Command::Remove(id.parse::<u32>().unwrap())),

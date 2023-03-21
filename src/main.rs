@@ -32,7 +32,7 @@ pub fn handle_command(cmd: Command) {
             let todos = db::get_todos().unwrap();
             println!("{:?}", todos);
         }
-        Command::Add(v) => db::add_todo(Todo::new(v)).unwrap(),
         Command::Remove(v) => db::remove_todo(v).unwrap(),
+        Command::Add(v) => db::add_todo(Todo::new(v)).unwrap(),
     };
 }
