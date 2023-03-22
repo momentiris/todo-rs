@@ -3,39 +3,25 @@ use crate::models::todo::Todo;
 
 use std::{fs, io::Write};
 
-use serde_json::{from_str, Result};
+use serde_json::{from_str, Result as SerdeResult};
 
-pub fn get_todos() -> Result<Vec<Todo>> {
-    let data = fs::read_to_string("./todos.json").unwrap();
-    let todos: ConfigFile = from_str(&data)?;
-
-    Ok(todos.data)
-}
-
-pub fn save_todos(todos: Vec<Todo>) -> Result<()> {
-    let config_file = ConfigFile { data: todos };
+pub fn save_todos(todos: Vec<Todo>) -> SerdeResult<Vec<Todo>> {
+    let config_file = ConfigFile {
+        data: todos.clone(),
+    };
     let json = serde_json::to_string(&config_file).unwrap();
 
     let mut file = fs::File::create("./todos.json").unwrap();
     file.write_all(json.as_bytes()).unwrap();
 
-    Ok(())
+    return Result::Ok(todos);
 }
 
-pub fn add_todo(todo: Todo) -> Result<()> {
-    let mut todos = get_todos().unwrap();
-    todos.push(todo);
+pub fn get_todos() -> SerdeResult<Vec<Todo>> {
+    let data = fs::read_to_string("./todos.json").unwrap();
+    let todos: ConfigFile = from_str(&data)?;
 
-    save_todos(todos).unwrap();
-    Ok(())
-}
-
-pub fn remove_todo(todo_id: u32) -> Result<()> {
-    let mut todos = get_todos().unwrap();
-    todos.retain(|x| x.id != todo_id);
-    save_todos(todos).unwrap();
-
-    Ok(())
+    Ok(todos.data)
 }
 
 pub fn init() {

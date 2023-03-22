@@ -10,13 +10,13 @@ impl Command {
     }
 
     fn parse(v: Vec<&str>) -> Option<Command> {
-        let command = v.get(0).cloned();
+        let command = v.get(0).cloned().unwrap();
         let args = v.get(1).cloned();
 
         match (command, args) {
-            (Some("add"), Some(title)) => Some(Command::Add(String::from(title.clone()))),
-            (Some("remove"), Some(id)) => Some(Command::Remove(id.parse::<u32>().unwrap())),
-            (Some("list"), _) => Some(Command::List),
+            ("add", Some(title)) => Some(Command::Add(title.to_string())),
+            ("remove", Some(id)) => Some(Command::Remove(id.parse::<u32>().unwrap())),
+            ("list", _) => Some(Command::List),
             _ => None,
         }
     }

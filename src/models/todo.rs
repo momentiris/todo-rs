@@ -17,7 +17,7 @@ impl Todo {
 
         return Self {
             created_at: timestamp.to_owned(),
-            title: String::from(title),
+            title: title.to_string(),
             done: false,
             id: get_id(),
             updated_at: timestamp,
