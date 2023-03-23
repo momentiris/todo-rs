@@ -20,21 +20,20 @@ pub fn get_id() -> u32 {
 pub fn print_help() {
     let help = format!(
         "
-            {} {}
+            {}
             {}
             -----
         
             Help:
         
-            Command   | Arguments | Description
-            {}           text        Add a new todo
-            {}                       List all todos
-            {}           id          Mark a todo as done
-            {}           id          Delete a todo
+            Command   |  Arguments  |    Description
+            {}            text          Add a new todo
+            {}                         List all todos
+            {}            id           Mark a todo as done
+            {}          id           Delete a todo
         ",
         "Welcome to".grey(),
-        "TodoBook".cyan(),
-        "Simple todo app written in Rust".black(),
+        "A Simple Todo App ™️".cyan(),
         "add".cyan(),
         "list".blue(),
         "done".green(),
