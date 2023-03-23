@@ -1,5 +1,4 @@
-use crate::db;
-use crate::Todo;
+use crate::{db, models::todo::Todo};
 
 pub fn add_todo(todo: Todo) -> Result<Todo, ()> {
     match db::get_todos() {
