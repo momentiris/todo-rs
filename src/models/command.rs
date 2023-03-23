@@ -2,6 +2,7 @@ pub enum Command {
     Add(String),
     Remove(u32),
     List,
+    Update(u32),
 }
 
 impl Command {
@@ -17,6 +18,7 @@ impl Command {
             ("add", Some(title)) => Some(Command::Add(title.to_string())),
             ("remove", Some(id)) => Some(Command::Remove(id.parse::<u32>().unwrap())),
             ("list", _) => Some(Command::List),
+            ("done", Some(id)) => Some(Command::Update(id.parse::<u32>().unwrap())),
             _ => None,
         }
     }

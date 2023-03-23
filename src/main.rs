@@ -21,12 +21,19 @@ fn main() {
 
     match cmd {
         Some(cmd) => handle_command(cmd),
-        _ => println!("bad command"),
+        _ => println!("Invalid command..."),
     }
 }
 
 pub fn handle_command(cmd: Command) {
     match cmd {
+        Command::Add(v) => {
+            let result = services::add_todo(Todo::new(v));
+            match result {
+                Ok(_) => println!("Added todo"),
+                Err(_) => println!("Something went wrong when adding todo"),
+            }
+        }
         Command::List => {
             let result = services::get_todos();
             match result {
@@ -34,18 +41,18 @@ pub fn handle_command(cmd: Command) {
                 Err(_) => println!("Something went wrong when retrieving todos"),
             }
         }
-        Command::Remove(v) => {
-            let result = services::remove_todo(v);
+        Command::Remove(id) => {
+            let result = services::remove_todo(id);
             match result {
-                Ok(_) => println!("Removed todo {:?}", v),
+                Ok(_) => println!("Removed todo {:?}", id),
                 Err(_) => println!("Something went wrong when removing todo"),
             }
         }
-        Command::Add(v) => {
-            let result = services::add_todo(Todo::new(v));
+        Command::Update(id) => {
+            let result = services::update_todo(id);
             match result {
-                Ok(_) => println!("Added todo"),
-                Err(_) => println!("Something went wrong when adding todo"),
+                Ok(_) => println!("Updated todo"),
+                Err(_) => println!("Something went wrong when updating todo"),
             }
         }
     };
