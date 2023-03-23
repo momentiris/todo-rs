@@ -1,4 +1,3 @@
-mod config_file;
 mod db;
 mod models;
 mod services;
@@ -13,6 +12,7 @@ use std::io;
 
 fn main() {
     db::init();
+    utils::print_help();
 
     let mut user_input = String::new();
     let stdin = io::stdin();

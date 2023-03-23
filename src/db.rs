@@ -1,5 +1,4 @@
-use crate::config_file::ConfigFile;
-use crate::models::todo::Todo;
+use crate::models::{config_file::ConfigFile, todo::Todo};
 
 use std::{fs, io::Write};
 
