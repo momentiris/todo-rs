@@ -1,4 +1,4 @@
-use crate::{db, models::todo::Todo};
+use crate::{db, models::todo::Todo, utils};
 
 pub fn add_todo(todo: Todo) -> Result<Todo, ()> {
     match db::get_todos() {
@@ -27,6 +27,7 @@ pub fn update_todo(todo_id: u32) -> Result<Todo, ()> {
         Ok(mut todos) => {
             let target_index = todos.iter().position(|todo| todo.id == todo_id).unwrap();
             todos[target_index].done = true;
+            todos[target_index].updated_at = utils::get_timestamp();
 
             let updated_todo = todos[target_index].clone();
             db::save_todos(todos).map_or(Err(()), |_| Ok(updated_todo))
