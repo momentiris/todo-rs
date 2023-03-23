@@ -51,7 +51,7 @@ pub fn handle_command(cmd: Command) {
         Command::Update(id) => {
             let result = services::update_todo(id);
             match result {
-                Ok(_) => println!("Updated todo"),
+                Ok(_) => println!("Updated todo {:?}", id),
                 Err(_) => println!("Something went wrong when updating todo"),
             }
         }
