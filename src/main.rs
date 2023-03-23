@@ -3,10 +3,7 @@ mod models;
 mod services;
 mod utils;
 
-use models::{
-    command::Command,
-    todo::{self, Todo},
-};
+use models::{command::Command, todo::Todo};
 
 use std::io;
 
@@ -20,8 +17,8 @@ fn main() {
     stdin.read_line(&mut user_input).expect("input failure");
 
     let input = user_input.as_str().trim().split(" ").collect();
-
     let cmd = Command::new(input);
+
     match cmd {
         Some(cmd) => handle_command(cmd),
         _ => println!("bad command"),
@@ -33,7 +30,7 @@ pub fn handle_command(cmd: Command) {
         Command::List => {
             let result = services::get_todos();
             match result {
-                Ok(todos) => println!("{:?}", todos),
+                Ok(todos) => utils::print_todos(todos),
                 Err(_) => println!("Something went wrong when retrieving todos"),
             }
         }

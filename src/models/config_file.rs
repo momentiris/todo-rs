@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize};
 
-use crate::todo::Todo;
+use super::todo::Todo;
 
 #[derive(Serialize, Deserialize, Debug)]
 
