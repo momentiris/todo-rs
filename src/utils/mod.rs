@@ -12,9 +12,8 @@ pub fn get_timestamp() -> String {
 
 pub fn get_id() -> u32 {
     let mut rng = rand::thread_rng();
-    let id: u32 = rng.gen_range(1..1000);
 
-    id + rng.gen_range(1..1000)
+    rng.gen_range(1..1000) + rng.gen_range(1..1000)
 }
 
 pub fn print_help() {
