@@ -8,10 +8,11 @@ use crate::{
 };
 
 pub fn start() {
-    db::init();
+    let file_path = "./todos.json".to_string();
+    db::init(&file_path);
     utils::print_help();
 
-    let todo_repository = FileTodoRepository::new("./todos.json".to_string());
+    let todo_repository = FileTodoRepository::new(file_path);
     let todo_service = TodoService::new(todo_repository);
 
     let mut user_input = String::new();
@@ -19,8 +20,9 @@ pub fn start() {
 
     stdin.read_line(&mut user_input).expect("input failure");
 
-    let input = user_input.as_str().trim().split_whitespace().collect();
-    let cmd = Command::new(input);
+    let mut input = user_input.as_str().trim().split_whitespace();
+
+    let cmd = Command::new((input.next(), input.next()));
 
     match cmd {
         Some(cmd) => handle_command(cmd, todo_service),

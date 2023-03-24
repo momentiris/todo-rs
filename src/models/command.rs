@@ -6,21 +6,24 @@ pub enum Command {
     Update(u32),
 }
 
+type Input<'a> = (Option<&'a str>, Option<&'a str>);
+
 impl Command {
-    pub fn new(v: Vec<&str>) -> Option<Self> {
-        Self::parse(v)
+    pub fn new(input: Input) -> Option<Self> {
+        Self::parse(input)
     }
 
-    fn parse(v: Vec<&str>) -> Option<Command> {
-        let command = v.get(0).cloned().unwrap();
-        let args = v.get(1).cloned();
+    fn parse(input: Input) -> Option<Command> {
+        let a = input.0.unwrap_or("");
+        let b = input.1.unwrap_or("");
 
-        match (command, args) {
-            ("add", Some(title)) => Some(Command::Add(title.to_string())),
-            ("remove", Some(id)) => Some(Command::Remove(id.parse::<u32>().unwrap())),
+        match (a, b) {
             ("list", _) => Some(Command::List),
-            ("done", Some(id)) => Some(Command::Update(id.parse::<u32>().unwrap())),
             ("clear", _) => Some(Command::Clear),
+
+            ("add", title) => Some(Command::Add(title.to_string())),
+            ("remove", id_str) => id_str.parse::<u32>().ok().map(|id| Command::Remove(id)),
+            ("done", id_str) => id_str.parse::<u32>().ok().map(|id| Command::Update(id)),
             _ => None,
         }
     }

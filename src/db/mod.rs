@@ -40,9 +40,7 @@ impl TodoRepository for FileTodoRepository {
     }
 }
 
-pub fn init() {
-    let file_path = "./todos.json";
-
+pub fn init(file_path: &str) {
     if !fs::metadata(file_path).is_ok() {
         let mut file = fs::File::create(file_path).unwrap();
         file.write_all(b"{\"data\":[]}").unwrap();
