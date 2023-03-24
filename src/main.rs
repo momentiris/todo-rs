@@ -4,6 +4,8 @@ mod models;
 mod services;
 mod utils;
 
+use app::app as App;
+
 fn main() {
-    app::start()
+    App::start()
 }
