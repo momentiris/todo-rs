@@ -1,7 +1,8 @@
 pub enum Command {
     Add(String),
-    Remove(u32),
+    Clear,
     List,
+    Remove(u32),
     Update(u32),
 }
 

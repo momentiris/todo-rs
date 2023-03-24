@@ -27,16 +27,18 @@ pub fn print_help() {
         
             Command   |  Arguments  |    Description
             {}            text          Add a new todo
-            {}                         List all todos
             {}            id           Mark a todo as done
             {}          id           Delete a todo
+            {}                        Delete all todos
+            {}                         List all todos
         ",
         "Welcome to".grey(),
         "A Simple Todo App ™️".cyan(),
         "add".cyan(),
-        "list".blue(),
         "done".green(),
-        "remove".red()
+        "remove".red(),
+        "clear".green(),
+        "list".blue(),
     );
 
     println!("{help}");

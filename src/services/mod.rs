@@ -39,3 +39,7 @@ pub fn update_todo(todo_id: u32) -> Result<Todo, ()> {
         }
     }
 }
+
+// pub fn clean_todos() -> Result<(), ()> {
+// match db::get_todos() {}
+// }
