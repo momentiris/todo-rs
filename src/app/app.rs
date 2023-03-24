@@ -1,5 +1,3 @@
-use std::io;
-
 use crate::{
     db::{self, FileTodoRepository},
     models::{command::Command, todo::Todo},
@@ -14,11 +12,7 @@ pub fn start() {
 
     let todo_repository = FileTodoRepository::new(file_path);
     let todo_service = TodoService::new(todo_repository);
-
-    let mut user_input = String::new();
-    let stdin = io::stdin();
-
-    stdin.read_line(&mut user_input).expect("input failure");
+    let user_input = utils::get_input();
 
     let mut input = user_input.as_str().trim().split_whitespace();
     let cmd = Command::new((input.next(), input.next()));

@@ -1,3 +1,5 @@
+use std::io;
+
 use colorize::*;
 pub(crate) use rand::prelude::*;
 
@@ -64,4 +66,12 @@ pub fn print_todos(todos: Vec<Todo>) {
             }
         )
     })
+}
+
+pub fn get_input() -> String {
+    let mut user_input = String::new();
+    let stdin = io::stdin();
+
+    stdin.read_line(&mut user_input).expect("input failure");
+    user_input
 }
