@@ -21,7 +21,6 @@ pub fn start() {
     stdin.read_line(&mut user_input).expect("input failure");
 
     let mut input = user_input.as_str().trim().split_whitespace();
-
     let cmd = Command::new((input.next(), input.next()));
 
     match cmd {

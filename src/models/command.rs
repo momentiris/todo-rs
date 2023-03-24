@@ -20,7 +20,6 @@ impl Command {
         match (a, b) {
             ("list", _) => Some(Command::List),
             ("clear", _) => Some(Command::Clear),
-
             ("add", title) => Some(Command::Add(title.to_string())),
             ("remove", id_str) => id_str.parse::<u32>().ok().map(|id| Command::Remove(id)),
             ("done", id_str) => id_str.parse::<u32>().ok().map(|id| Command::Update(id)),
