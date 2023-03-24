@@ -8,7 +8,7 @@ pub enum Command {
 
 impl Command {
     pub fn new(v: Vec<&str>) -> Option<Self> {
-        return Self::parse(v);
+        Self::parse(v)
     }
 
     fn parse(v: Vec<&str>) -> Option<Command> {
