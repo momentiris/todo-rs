@@ -2,25 +2,42 @@ use crate::models::{config_file::ConfigFile, todo::Todo};
 
 use std::{fs, io::Write};
 
-use serde_json::{from_str, Result as SerdeResult};
+use serde_json::from_str;
 
-pub fn save_todos(todos: Vec<Todo>) -> SerdeResult<Vec<Todo>> {
-    let config_file = ConfigFile {
-        data: todos.clone(),
-    };
-    let json = serde_json::to_string(&config_file).unwrap();
-
-    let mut file = fs::File::create("./todos.json").unwrap();
-    file.write_all(json.as_bytes()).unwrap();
-
-    return Result::Ok(todos);
+pub trait TodoRepository {
+    fn save(&mut self, todos: Vec<Todo>) -> Result<Vec<Todo>, String>;
+    fn get(&mut self) -> Result<Vec<Todo>, String>;
 }
 
-pub fn get_todos() -> SerdeResult<Vec<Todo>> {
-    let data = fs::read_to_string("./todos.json").unwrap();
-    let todos: ConfigFile = from_str(&data)?;
+pub struct FileTodoRepository {
+    file_path: String,
+}
 
-    Ok(todos.data)
+impl FileTodoRepository {
+    pub fn new(file_path: String) -> Self {
+        Self { file_path }
+    }
+}
+
+impl TodoRepository for FileTodoRepository {
+    fn save(&mut self, todos: Vec<Todo>) -> Result<Vec<Todo>, String> {
+        let config_file = ConfigFile {
+            data: todos.clone(),
+        };
+
+        let json_result = serde_json::to_string(&config_file).unwrap();
+
+        let mut file = fs::File::create(self.file_path).unwrap();
+        file.write_all(json_result.as_bytes()).unwrap();
+
+        return Result::Ok(todos);
+    }
+    fn get(&mut self) -> Result<Vec<Todo>, String> {
+        let data = fs::read_to_string(self.file_path).unwrap();
+        let todos: ConfigFile = from_str(&data).unwrap();
+
+        Ok(todos.data)
+    }
 }
 
 pub fn init() {

@@ -10,6 +10,16 @@ pub fn add_todo(todo: Todo) -> Result<Todo, ()> {
     }
 }
 
+pub fn clear_todos() -> Result<(), ()> {
+    match db::get_todos() {
+        Err(_) => Err(()),
+        Ok(mut todos) => {
+            todos.clear();
+            db::save_todos(todos).map_or_else(|_| Err(()), |_| Ok(()))
+        }
+    }
+}
+
 pub fn get_todos() -> Result<Vec<Todo>, ()> {
     db::get_todos().map_or(Err(()), |todos| Ok(todos))
 }

@@ -20,6 +20,7 @@ impl Command {
             ("remove", Some(id)) => Some(Command::Remove(id.parse::<u32>().unwrap())),
             ("list", _) => Some(Command::List),
             ("done", Some(id)) => Some(Command::Update(id.parse::<u32>().unwrap())),
+            ("clear", _) => Some(Command::Clear),
             _ => None,
         }
     }

@@ -1,7 +1,7 @@
 use std::io;
 
 use crate::{
-    db,
+    db::{self, FileTodoRepository, TodoRepository},
     models::{command::Command, todo::Todo},
     services, utils,
 };
@@ -10,6 +10,8 @@ pub fn start() {
     db::init();
     utils::print_help();
 
+    let r = FileTodoRepository::new("ok".to_string());
+    let todo_service = TodoService::new(r);
     let mut user_input = String::new();
     let stdin = io::stdin();
 
@@ -54,5 +56,22 @@ pub fn handle_command(cmd: Command) {
                 Err(_) => println!("Something went wrong when updating todo"),
             }
         }
+        Command::Clear => {
+            let result = services::clear_todos();
+            match result {
+                Ok(_) => println!("Cleared todos"),
+                Err(_) => println!("Something went wrong when clearing todos:went"),
+            }
+        }
     };
+}
+
+pub struct TodoService<T: TodoRepository> {
+    repository: T,
+}
+
+impl<T: TodoRepository> TodoService<T> {
+    pub fn new(r: T) -> Self {
+        Self { repository: r }
+    }
 }
